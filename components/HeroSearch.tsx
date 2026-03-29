@@ -102,7 +102,7 @@ export function HeroSearch({ destinations }: Props) {
               type="search"
               autoComplete="off"
               placeholder="Search a destination (e.g. Sri Lanka, Dubai)…"
-              className="w-full rounded-2xl border border-white/25 bg-white/12 backdrop-blur-xl px-5 py-4 text-white placeholder:text-slate-400 outline-none shadow-soft ring-1 ring-white/10 focus:ring-2 focus:ring-brand-400/70 focus:border-brand-300/50 transition-shadow"
+              className="w-full rounded-2xl border border-white/50 bg-white px-5 py-4 text-slate-900 placeholder:text-slate-500 shadow-lg shadow-black/15 outline-none ring-1 ring-black/5 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-shadow caret-brand-600"
               value={q}
               onChange={(e) => setQ(e.target.value)}
               onFocus={() => setFocused(true)}
