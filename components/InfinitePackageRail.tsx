@@ -160,7 +160,7 @@ export function InfinitePackageRail({
             viewport={{ once: true }}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
             className="font-display text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight drop-shadow-sm"
-          >
+          > 
             {title}
           </motion.h2>
           {subtitle && (
