@@ -7,18 +7,21 @@ export const SITE_PHONE_E164 = "+917066444430";
 
 export const SITE_PHONE_TEL = `tel:${SITE_PHONE_E164}`;
 
+/** Digits only (e.g. 917066444430) — wa.me link */
+export const SITE_WHATSAPP_HREF = `https://wa.me/${SITE_PHONE_E164.replace(/\D/g, "")}`;
+
 export const SITE_ADDRESS = "South Beach, Calicut, Kerala";
 
 export const SITE_SOCIAL_INSTAGRAM = "https://www.instagram.com/tripelootrips";
 export const SITE_SOCIAL_FACEBOOK = "https://www.facebook.com/tripelootrips";
 
 export function siteSocialWhatsAppHref(): string {
-  return `https://wa.me/${SITE_PHONE_E164.replace(/\D/g, "")}`;
+  return SITE_WHATSAPP_HREF;
 }
 
 export const SITE_SOCIAL = {
   instagram: SITE_SOCIAL_INSTAGRAM,
   facebook: SITE_SOCIAL_FACEBOOK,
-  whatsapp: siteSocialWhatsAppHref(),
+  whatsapp: SITE_WHATSAPP_HREF,
 } as const;
 

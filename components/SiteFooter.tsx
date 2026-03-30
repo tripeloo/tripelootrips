@@ -33,9 +33,7 @@ export function SiteFooter() {
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
         <div>
-          <div className="rounded-xl bg-white p-3 w-fit shadow-lg shadow-black/20">
-            <BrandLogo variant="footer" className="[&_img]:brightness-100" />
-          </div>
+          <BrandLogo variant="footer" className="[&_img]:drop-shadow-lg" />
           <p className="mt-4 text-sm leading-relaxed text-slate-400">
             Tour packages and vacations for travellers from South India — domestic & international —
             with human support end to end.

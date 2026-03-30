@@ -108,3 +108,16 @@ export async function loadHomeSections(): Promise<{
     section2,
   };
 }
+
+/** All home featured destination rails in display order (section 1, then section 2, de-duplicated by slug). */
+export async function loadHomePageRails(): Promise<DestinationWithPackages[]> {
+  const { section1, section2 } = await loadHomeSections();
+  const seen = new Set<string>();
+  const out: DestinationWithPackages[] = [];
+  for (const d of [...section1, ...section2]) {
+    if (seen.has(d.slug)) continue;
+    seen.add(d.slug);
+    out.push(d);
+  }
+  return out;
+}

@@ -19,17 +19,19 @@ export function SiteHeader() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 w-full max-w-[100vw]">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 pt-3 sm:pt-4 w-full min-w-0 box-border">
+      {isHome && (
+        <div
+          className="pointer-events-none absolute left-0 right-0 top-0 h-[7.25rem] sm:h-[7.75rem] bg-gradient-to-b from-slate-950/65 via-slate-950/25 to-transparent"
+          aria-hidden
+        />
+      )}
+      <div className="relative max-w-7xl mx-auto px-3 sm:px-6 pt-3 sm:pt-4 w-full min-w-0 box-border">
         <div className={`flex items-center justify-between gap-2 sm:gap-4 px-3 sm:px-4 py-2 sm:py-2.5 w-full min-w-0 ${shell}`}>
-          <div
-            className={
-              isHome
-                ? "rounded-xl bg-white pl-2 pr-3 py-1.5 shadow-md shadow-black/10"
-                : ""
-            }
-          >
-            <BrandLogo variant="header" priority />
-          </div>
+          <BrandLogo
+            variant="header"
+            priority
+            className={isHome ? "[&_img]:drop-shadow-md" : ""}
+          />
           <nav className="flex items-center gap-1.5 sm:gap-4 text-sm shrink-0">
             <Link href="/destinations" className={`${link} hidden sm:inline`}>
               Destinations

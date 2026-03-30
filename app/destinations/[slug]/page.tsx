@@ -103,7 +103,7 @@ export default async function DestinationPage({ params }: Props) {
             {plainPkgs.length} curated {plainPkgs.length === 1 ? "trip" : "trips"} — tap a card for
             details or request a callback.
           </p>
-          <div className="mt-8 flex flex-wrap gap-6">
+          <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4 items-stretch">
             {plainPkgs.map((p) => (
               <PackageCard
                 key={String(p._id)}

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { WhatsAppGlobalButton } from "@/components/WhatsAppGlobalButton";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -72,7 +73,7 @@ export default function RootLayout({
   return (
     <html lang="en-IN">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-landing-canvas text-slate-900 overflow-x-hidden`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-landing-canvas text-slate-900 overflow-x-clip`}
         style={
           {
             "--font-display": "var(--font-geist-sans)",
@@ -80,6 +81,7 @@ export default function RootLayout({
         }
       >
         {children}
+        <WhatsAppGlobalButton />
       </body>
     </html>
   );

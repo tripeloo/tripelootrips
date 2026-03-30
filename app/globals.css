@@ -27,6 +27,141 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
 }
 
+/* Featured package rails — ambient animated backdrop (home #best-destination-1) */
+.rail-feature-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(72px);
+  pointer-events: none;
+  will-change: transform;
+}
+.rail-feature-blob--a {
+  width: min(42rem, 85vw);
+  height: min(42rem, 85vw);
+  top: -18%;
+  left: -12%;
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(237, 43, 87, 0.38) 0%,
+    rgba(237, 43, 87, 0.12) 45%,
+    transparent 70%
+  );
+  animation: rail-blob-a 22s ease-in-out infinite;
+}
+.rail-feature-blob--b {
+  width: min(36rem, 75vw);
+  height: min(36rem, 75vw);
+  top: 8%;
+  right: -16%;
+  background: radial-gradient(
+    circle at 40% 40%,
+    rgba(14, 165, 233, 0.22) 0%,
+    rgba(59, 130, 246, 0.1) 50%,
+    transparent 68%
+  );
+  animation: rail-blob-b 26s ease-in-out infinite;
+}
+.rail-feature-blob--c {
+  width: min(28rem, 70vw);
+  height: min(28rem, 70vw);
+  bottom: -22%;
+  left: 18%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(251, 191, 36, 0.14) 0%,
+    rgba(237, 43, 87, 0.1) 55%,
+    transparent 72%
+  );
+  animation: rail-blob-c 19s ease-in-out infinite;
+}
+.rail-feature-shimmer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  background: linear-gradient(
+    118deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.09) 22%,
+    transparent 38%,
+    rgba(237, 43, 87, 0.06) 52%,
+    transparent 65%,
+    rgba(255, 255, 255, 0.06) 82%,
+    transparent 100%
+  );
+  background-size: 280% 100%;
+  animation: rail-shimmer-slide 28s linear infinite;
+}
+.rail-feature-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 92% 80% at 50% 42%,
+    transparent 52%,
+    rgba(232, 224, 212, 0.22) 88%,
+    rgba(240, 235, 227, 0.4) 100%
+  );
+}
+
+@keyframes rail-blob-a {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  40% {
+    transform: translate(6%, 10%) scale(1.06);
+  }
+  70% {
+    transform: translate(-4%, 4%) scale(0.97);
+  }
+}
+@keyframes rail-blob-b {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  35% {
+    transform: translate(-8%, 6%) scale(1.05);
+  }
+  65% {
+    transform: translate(5%, -5%) scale(0.96);
+  }
+}
+@keyframes rail-blob-c {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  45% {
+    transform: translate(10%, -6%) scale(1.04);
+  }
+  75% {
+    transform: translate(-6%, 8%) scale(0.98);
+  }
+}
+@keyframes rail-shimmer-slide {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rail-feature-blob--a,
+  .rail-feature-blob--b,
+  .rail-feature-blob--c,
+  .rail-feature-shimmer {
+    animation: none !important;
+  }
+  .rail-feature-shimmer {
+    opacity: 0.28;
+    background-position: 40% 50%;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

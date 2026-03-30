@@ -9,6 +9,17 @@ import { PackageCard } from "@/components/PackageCard";
 const AUTO_SLIDE_MS = 5500;
 const PAUSE_AFTER_SCROLL_MS = 12000;
 
+/** Centers a card in the horizontal scroller without calling scrollIntoView (avoids window jump). */
+function scrollItemToCenter(
+  scroller: HTMLElement,
+  item: HTMLElement,
+  behavior: ScrollBehavior = "auto"
+) {
+  const center = item.offsetLeft + item.offsetWidth / 2;
+  const left = Math.max(0, center - scroller.clientWidth / 2);
+  scroller.scrollTo({ left, behavior });
+}
+
 type Props = {
   title: string;
   subtitle?: string;
@@ -105,7 +116,7 @@ export function InfinitePackageRail({
       if (recenterFirst) {
         recenterFirst = false;
         const target = el.querySelector<HTMLElement>('[data-carousel-item="0"]');
-        target?.scrollIntoView({ inline: "center", block: "nearest", behavior: "auto" });
+        if (target) scrollItemToCenter(el, target, "auto");
       }
       syncIndexFromScroll();
     };
@@ -130,8 +141,8 @@ export function InfinitePackageRail({
       if (!el) return;
       const n = packages.length;
       const next = (indexRef.current + 1) % n;
-      const target = el.querySelector(`[data-carousel-item="${next}"]`);
-      target?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      const target = el.querySelector<HTMLElement>(`[data-carousel-item="${next}"]`);
+      if (target) scrollItemToCenter(el, target, "smooth");
       indexRef.current = next;
     }, AUTO_SLIDE_MS);
     return () => clearInterval(id);
@@ -140,41 +151,57 @@ export function InfinitePackageRail({
   if (!packages.length) return null;
 
   return (
-    <section className="py-10 sm:py-14 overflow-hidden">
+    <section className="relative py-10 sm:py-14">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-6 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div>
           <motion.h2
             initial={{ opacity: 0, y: 8 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-display text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight"
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="font-display text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight drop-shadow-sm"
           >
             {title}
           </motion.h2>
           {subtitle && (
-            <p className="mt-2 text-slate-600 max-w-xl text-sm sm:text-base">
+            <motion.p
+              initial={{ opacity: 0, y: 6 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-2 text-slate-600 max-w-xl text-sm sm:text-base"
+            >
               {subtitle}{" "}
               <span className="text-brand-700 font-semibold">{destinationName}</span>
-            </p>
+            </motion.p>
           )}
         </div>
+        <motion.div
+          initial={{ opacity: 0, y: 6 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.45, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+          className="shrink-0"
+        >
         <Link
           href={`/destinations/${destinationSlug}`}
-          className="text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 px-4 py-2 rounded-full shadow-sm inline-flex items-center gap-1 shrink-0 transition-colors"
+          className="text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 px-4 py-2 rounded-full shadow-lg shadow-brand-600/25 ring-1 ring-white/25 inline-flex items-center gap-1 transition-colors hover:shadow-brand-600/35"
         >
           View all in {destinationName}
           <span aria-hidden>→</span>
         </Link>
+        </motion.div>
       </div>
 
-      <div className="relative">
+      <div className="relative w-full min-w-0 isolate">
         <div className={leftFade} />
         <div className={rightFade} />
 
         <div
           ref={scrollerRef}
           onScroll={onScrollerScroll}
-          className="flex gap-5 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden touch-pan-x"
+          style={{ WebkitOverflowScrolling: "touch" }}
+          className="relative z-[5] flex w-full min-w-0 max-w-full gap-5 overflow-x-auto overscroll-x-contain scroll-smooth pb-2 [touch-action:pan-x_pan-y] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden snap-x snap-mandatory"
         >
           {packages.map((pkg, i) => (
             <div

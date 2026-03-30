@@ -37,15 +37,15 @@ export function PackageCard({ pkg, destinationSlug, destinationName }: Props) {
 
   return (
     <>
-      <article className="group relative h-full w-full rounded-2xl bg-white border border-slate-200/70 shadow-card hover:shadow-soft hover:border-brand-300/50 transition-all duration-300 overflow-hidden ring-1 ring-slate-900/[0.03]">
-        <Link href={`/packages/${pkgId(pkg)}`} className="block">
+      <article className="group relative flex h-full w-full flex-col rounded-2xl bg-white border border-slate-200/70 shadow-card hover:shadow-soft hover:border-brand-300/50 transition-all duration-300 overflow-hidden ring-1 ring-slate-900/[0.03]">
+        <Link href={`/packages/${pkgId(pkg)}`} className="block shrink-0">
           <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
             <Image
               src={pkg.coverImage || FALLBACK_IMG}
               alt={pkg.name}
               fill
               className="object-cover transition duration-500 group-hover:scale-105"
-              sizes="(max-width:640px) 85vw, 300px"
+              sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, (max-width:1280px) 34vw, 25vw"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-60" />
             <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-2">
@@ -55,7 +55,7 @@ export function PackageCard({ pkg, destinationSlug, destinationName }: Props) {
             </div>
           </div>
         </Link>
-        <div className="p-4">
+        <div className="flex flex-1 flex-col p-4">
           <div className="flex items-center justify-between gap-2">
             <p className="text-lg font-bold text-slate-900">
               {pkg.currency}{" "}
@@ -68,7 +68,7 @@ export function PackageCard({ pkg, destinationSlug, destinationName }: Props) {
           {pkg.summary && (
             <p className="mt-2 text-sm text-slate-600 line-clamp-2">{pkg.summary}</p>
           )}
-          <div className="mt-4 flex items-center gap-2">
+          <div className="mt-auto flex items-center gap-2 pt-4">
             {callOk && (
               <a
                 href={tel}
